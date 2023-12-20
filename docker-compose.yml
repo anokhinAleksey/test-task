@@ -1,26 +1,23 @@
 services:
-    laravel.test:
+    app:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
+            context: .
             dockerfile: Dockerfile
-            args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.2/app
+        image: test-task/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
             - '${APP_PORT:-80}:80'
             - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
         environment:
-            WWWUSER: '${WWWUSER}'
             LARAVEL_SAIL: 1
             XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
             XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
-            - '.:/var/www/html'
+            - '.:/app'
         networks:
-            - sail
+            - test-app
         depends_on:
             - pgsql
     pgsql:
@@ -33,10 +30,10 @@ services:
             POSTGRES_USER: '${DB_USERNAME}'
             POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
         volumes:
-            - 'sail-pgsql:/var/lib/postgresql/data'
-            - './vendor/laravel/sail/database/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+            - 'test-app-pgsql:/var/lib/postgresql/data'
+            - './.build/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
-            - sail
+            - test-app
         healthcheck:
             test:
                 - CMD
@@ -49,8 +46,8 @@ services:
             retries: 3
             timeout: 5s
 networks:
-    sail:
+    test-app:
         driver: bridge
 volumes:
-    sail-pgsql:
+    test-app-pgsql:
         driver: local
