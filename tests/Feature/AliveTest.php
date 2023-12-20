@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature;
 
 use App\Models\Role;
@@ -11,7 +13,7 @@ class AliveTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_the_application_returns_a_successful_response() : void
     {
         $role = Role::factory()->create();
         $user = User::factory()->create(['role_id' => $role->id]);

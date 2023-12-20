@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="testTask" namespace="testTask\CS\Standard"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <description>Project level rules based on OpsWay strict PSR12 standard</description>
+    <!-- For actual code strict standard -->
+    <rule ref="OpsWayStrictPSR12CodingStandard">
+        <!-- Temporary disabled: Waiting support of PHP8 attributes -->
+        <exclude name="WebimpressCodingStandard.Namespaces.UnusedUseStatement.UnusedUse"/>
+        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+        <exclude name="PSR12.Files.FileHeader.IncorrectOrder" />
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock" />
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.FirstParamSpacing" />
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.Indent" />
+        <exclude name="WebimpressCodingStandard.NamingConventions.Interface.Suffix" />
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.WrongStyle">
+        <exclude-pattern>tests/Feature/*Test.php</exclude-pattern>
+        <exclude-pattern>tests/Unit/*Test.php</exclude-pattern>
+    </rule>
+    <rule ref="WebimpressCodingStandard.NamingConventions.AbstractClass.Prefix">
+        <exclude-pattern>tests/</exclude-pattern>
+    </rule>
+    <!-- Paths to check -->
+    <file>app/</file>
+    <arg name="extensions" value="php"/>
+    <arg name="cache" value="/tmp/.phpcs-cache"/>
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="parallel" value="4"/>
+    <arg value="nsp"/>
+    <exclude-pattern>*\.config.php$</exclude-pattern>
+</ruleset>

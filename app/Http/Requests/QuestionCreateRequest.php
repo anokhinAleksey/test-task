@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Contracts\QuestionServiceInterface;
@@ -14,17 +16,17 @@ class QuestionCreateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @psalm-return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
-            'course' => 'required|uuid',
+            'course'   => 'required|uuid',
             'question' => 'required|string|max:255',
         ];
     }
 
-    public function messages(): array
+    public function messages() : array
     {
         return [
             'course.required' => 'You must select a professor and course for your question',
@@ -32,12 +34,12 @@ class QuestionCreateRequest extends FormRequest
     }
 
     /** @psalm-return QuestionStoreData */
-    public function modelData(): array
+    public function modelData() : array
     {
         return [
             'question' => $this->input('question'),
             'courseId' => $this->input('course'),
-            'user' => $this->user(),
+            'user'     => $this->user(),
         ];
     }
 }

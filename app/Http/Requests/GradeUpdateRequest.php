@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests;
 
 use App\Contracts\GradeServiceInterface;
@@ -17,26 +19,26 @@ class GradeUpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @psalm-return array<string, ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules() : array
     {
         return [
             'gradeId' => 'required|uuid',
-            'grade' => ['required', 'string', new Enum(GradesEnum::class)],
+            'grade'   => ['required', 'string', new Enum(GradesEnum::class)],
         ];
     }
 
     /** @psalm-return GradeStoreData */
-    public function modelData(): array
+    public function modelData() : array
     {
         /** @var User $user */
         $user = $this->user();
 
         return [
             'gradeId' => $this->str('gradeId')->value(),
-            'grade' => $this->str('grade')->value(),
-            'user' => $user,
+            'grade'   => $this->str('grade')->value(),
+            'user'    => $user,
         ];
     }
 }

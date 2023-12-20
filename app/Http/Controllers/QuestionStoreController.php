@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Contracts\QuestionServiceInterface;
@@ -9,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class QuestionStoreController extends Controller
 {
-    public function __invoke(QuestionCreateRequest $request, QuestionServiceInterface $service): RedirectResponse
+    public function __invoke(QuestionCreateRequest $request, QuestionServiceInterface $service) : RedirectResponse
     {
         $service->store($request->modelData());
 

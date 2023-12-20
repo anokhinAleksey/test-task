@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Casts\UuidCast;
@@ -24,18 +26,18 @@ class Question extends Model
     ];
 
     protected $casts = [
-        'id' => UuidCast::class,
+        'id'           => UuidCast::class,
         'from_user_id' => UuidCast::class,
-        'to_user_id' => UuidCast::class,
-        'course_id' => UuidCast::class,
+        'to_user_id'   => UuidCast::class,
+        'course_id'    => UuidCast::class,
     ];
 
-    public function userFrom(): BelongsTo
+    public function userFrom() : BelongsTo
     {
         return $this->belongsTo(User::class, 'from_user_id');
     }
 
-    public function course(): BelongsTo
+    public function course() : BelongsTo
     {
         return $this->belongsTo(Course::class);
     }

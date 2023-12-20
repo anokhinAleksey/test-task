@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Contracts\ProfessorDataReaderInterface;
@@ -17,7 +19,7 @@ class DashboardController extends Controller
         Request $request,
         StudentDataReaderInterface $studentDataReader,
         ProfessorDataReaderInterface $professorDataReader,
-    ): Response {
+    ) : Response {
         /** @var User $user */
         $user = Auth::user();
 
@@ -31,20 +33,20 @@ class DashboardController extends Controller
         Request $request,
         StudentDataReaderInterface $studentDataReader,
         User $user,
-    ): Response {
+    ) : Response {
         $validated = $request->validate(['course' => 'nullable|uuid']);
 
         return Inertia::render('Student/Dashboard', [
-            'grades' => fn () => $studentDataReader->readGrades($user->id, $validated['course'] ?? null),
+            'grades'  => fn () => $studentDataReader->readGrades($user->id->toString(), $validated['course'] ?? null),
             'courses' => fn () => $studentDataReader->readCourses($user),
         ]);
     }
 
-    private function viewProfessorDashboard(ProfessorDataReaderInterface $professorDataReader, User $user): Response
+    private function viewProfessorDashboard(ProfessorDataReaderInterface $professorDataReader, User $user) : Response
     {
         return Inertia::render('Professor/Dashboard', [
             'questions' => fn () => $professorDataReader->readQuestions($user),
-            'courses' => fn () => $professorDataReader->readCourses($user),
+            'courses'   => fn () => $professorDataReader->readCourses($user),
         ]);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Casts\UuidCast;
@@ -23,10 +25,10 @@ class UserGrade extends Model
     ];
 
     protected $casts = [
-        'id' => UuidCast::class,
-        'user_id' => UuidCast::class,
+        'id'        => UuidCast::class,
+        'user_id'   => UuidCast::class,
         'course_id' => UuidCast::class,
-        'grade' => GradesEnum::class,
+        'grade'     => GradesEnum::class,
     ];
 
     protected $hidden = [
@@ -34,12 +36,12 @@ class UserGrade extends Model
         'course_id',
     ];
 
-    public function course(): BelongsTo
+    public function course() : BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function user(): BelongsTo
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }

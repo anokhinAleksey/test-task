@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Contracts\GradeServiceInterface;
@@ -17,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void
+    public function register() : void
     {
         $this->app->bind(StudentDataReaderInterface::class, StudentDataReader::class);
         $this->app->bind(ProfessorDataReaderInterface::class, ProfessorDataReader::class);
@@ -28,8 +30,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot() : void
     {
-        //
     }
 }

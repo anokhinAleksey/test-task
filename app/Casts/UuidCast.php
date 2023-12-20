@@ -12,12 +12,12 @@ use Ramsey\Uuid\UuidInterface;
 /** @implements  CastsAttributes<UuidInterface,string> */
 class UuidCast implements CastsAttributes
 {
-    public function get(Model $model, string $key, mixed $value, array $attributes): ?UuidInterface
+    public function get(Model $model, string $key, mixed $value, array $attributes) : ?UuidInterface
     {
         return $value === null ? null : Uuid::fromString((string) $value);
     }
 
-    public function set(Model $model, string $key, mixed $value, array $attributes): ?string
+    public function set(Model $model, string $key, mixed $value, array $attributes) : ?string
     {
         /** @psalm-suppress RedundantCastGivenDocblockType */
         return $value === null ? null : (string) $value;

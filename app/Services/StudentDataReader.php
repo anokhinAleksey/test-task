@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Contracts\StudentDataReaderInterface;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StudentDataReader implements StudentDataReaderInterface
 {
-    public function readGrades(string $userId, ?string $courseId = null): Collection
+    public function readGrades(string $userId, ?string $courseId = null) : Collection
     {
         $grades = UserGrade::where(['user_id' => $userId])->with('course.professor');
 
@@ -21,12 +23,12 @@ class StudentDataReader implements StudentDataReaderInterface
         return $grades->get();
     }
 
-    public function readCourses(User $user): array
+    public function readCourses(User $user) : array
     {
         return $user->courses
             ->map(fn (Course $course) => [
-                'id' => $course->id,
-                'name' => $course->name,
+                'id'        => $course->id,
+                'name'      => $course->name,
                 'professor' => $course->professor->name,
             ])
             ->toArray();

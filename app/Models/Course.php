@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Casts\UuidCast;
@@ -24,7 +26,7 @@ class Course extends Model
     ];
 
     protected $casts = [
-        'id' => UuidCast::class,
+        'id'      => UuidCast::class,
         'user_id' => UuidCast::class,
     ];
 
@@ -32,7 +34,7 @@ class Course extends Model
         'user_id',
     ];
 
-    public function professor(): BelongsTo
+    public function professor() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

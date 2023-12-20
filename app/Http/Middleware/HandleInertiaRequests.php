@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
@@ -18,7 +20,7 @@ class HandleInertiaRequests extends Middleware
     /**
      * Determine the current asset version.
      */
-    public function version(Request $request): ?string
+    public function version(Request $request) : ?string
     {
         return parent::version($request);
     }
@@ -26,19 +28,19 @@ class HandleInertiaRequests extends Middleware
     /**
      * Define the props that are shared by default.
      *
-     * @return array<string, mixed>
+     * @psalm-return array<string, mixed>
      */
-    public function share(Request $request): array
+    public function share(Request $request) : array
     {
         return [
             ...parent::share($request),
-            'auth' => [
+            'auth'  => [
                 'user' => $request->user(),
             ],
             'ziggy' => fn () => [
-                ...(new Ziggy)->toArray(),
+                ...(new Ziggy())->toArray(),
                 'location' => $request->url(),
-                'query' => $request->query(),
+                'query'    => $request->query(),
             ],
         ];
     }

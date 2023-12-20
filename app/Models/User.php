@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Casts\UuidCast;
@@ -34,36 +36,36 @@ class User extends Model implements AuthenticatableContract
     ];
 
     protected $casts = [
-        'id' => UuidCast::class,
+        'id'       => UuidCast::class,
         'password' => 'hashed',
     ];
 
-    public function role(): BelongsTo
+    public function role() : BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
-    public function hasRole(string $role): bool
+    public function hasRole(string $role) : bool
     {
         return $this->role->name === $role;
     }
 
-    public function courses(): HasManyThrough
+    public function courses() : HasManyThrough
     {
         return $this->hasManyThrough(Course::class, UserGrade::class, 'user_id', 'id', 'id', 'course_id');
     }
 
-    public function questionsFromUser(): HasMany
+    public function questionsFromUser() : HasMany
     {
         return $this->hasMany(Question::class, 'from_user_id');
     }
 
-    public function questionsToUser(): HasMany
+    public function questionsToUser() : HasMany
     {
         return $this->hasMany(Question::class, 'to_user_id');
     }
 
-    public function grades(): HasManyThrough
+    public function grades() : HasManyThrough
     {
         return $this->hasManyThrough(UserGrade::class, Course::class, 'user_id', 'course_id', 'id', 'id');
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Contracts;
 
 use App\Models\User;
@@ -14,5 +16,5 @@ use App\Models\User;
 interface GradeServiceInterface
 {
     /** @psalm-param GradeStoreData $data */
-    public function store(array $data): void;
+    public function store(array $data) : void;
 }

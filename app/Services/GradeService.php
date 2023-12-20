@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Contracts\GradeServiceInterface;
@@ -13,7 +15,7 @@ use DomainException;
 class GradeService implements GradeServiceInterface
 {
     /** @psalm-param GradeStoreData $data */
-    public function store(array $data): void
+    public function store(array $data) : void
     {
         $grade = UserGrade::whereId($data['gradeId'])->with('course')->firstOrFail();
         if (! $grade->course->user_id->equals($data['user']->id)) {

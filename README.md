@@ -26,12 +26,12 @@ Generate Laravel IDE helper files
 
 Run migrations
 -------
-- Execute `./vendor/bin/sail artisan migrate --force`
+- Execute `php artisan migrate --force`
 
 Recreate DB
 -------
-- Execute `./vendor/bin/sail artisan migrate:refresh --seed`
+- Execute `php artisan migrate:refresh --seed`
 
 Run test
 -------
-- Execute `./vendor/bin/sail composer test`
+- Execute `php composer test`

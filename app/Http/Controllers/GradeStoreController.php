@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Contracts\GradeServiceInterface;
@@ -9,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class GradeStoreController extends Controller
 {
-    public function __invoke(GradeUpdateRequest $request, GradeServiceInterface $service): RedirectResponse
+    public function __invoke(GradeUpdateRequest $request, GradeServiceInterface $service) : RedirectResponse
     {
         $service->store($request->modelData());
 
